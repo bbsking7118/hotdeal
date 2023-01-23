@@ -38,14 +38,14 @@ def run():
             up_count = int(up_count)
             # print(image,title,link,reply_count,up_count)
             if up_count >= 6:
-                # print('>= 37조건 충족...',Deal.objects.filter(link__iexact=link))
-                # Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
-                # asyncio.run(botAsynMain('{} {}'.format(title, link)))
+                print('>= 37조건 충족...',Deal.objects.filter(link__iexact=link))
+                Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
+                asyncio.run(botAsynMain('{} {}'.format(title, link)))
                 # link__iexact : 대소문자 상관없이 같은지...
-                if (Deal.objects.filter(link__iexact=link).count() == 0):
-                    print(title,up_count)
-                    Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
-                    asyncio.run(botAsynMain('{} {}'.format(title, link)))
+                # if (Deal.objects.filter(link__iexact=link).count() == 0):
+                #     print(title,up_count)
+                #     Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
+                #     asyncio.run(botAsynMain('{} {}'.format(title, link)))
                 
         except Exception as e:
             continue
