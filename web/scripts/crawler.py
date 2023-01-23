@@ -15,6 +15,11 @@ async def botAsynMain(msg):
 
 def run():
     print('스크립트 시작...')
+    # delete deals older than 3days
+    # row, _ = Deal.objects.filter(created_at__lte=datetime.now() -
+    #                              timedelta(days=3)).delete()
+    # print(row, "deals deleted")
+    
     for item in soup.find_all("tr",{'class':['list_notice list-notice-alarm-sponsor-tr','list0','list1']}):
         try:
             item1 = item.find("div",class_= 'list_name')
@@ -33,14 +38,14 @@ def run():
             up_count = int(up_count)
             # print(image,title,link,reply_count,up_count)
             if up_count >= 6:
-                print('>= 37조건 충족...',Deal.objects.filter(link__iexact=link))
-                Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
-                asyncio.run(botAsynMain('{} {}'.format(title, link)))
+                # print('>= 37조건 충족...',Deal.objects.filter(link__iexact=link))
+                # Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
+                # asyncio.run(botAsynMain('{} {}'.format(title, link)))
                 # link__iexact : 대소문자 상관없이 같은지...
-                # if(Deal.objects.filter(link__iexact=link) == NULL):
-                #     print(title,up_count)
-                #     Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
-                #     asyncio.run(botAsynMain('{} {}'.format(title, link)))
+                if (Deal.objects.filter(link__iexact=link).count() == 0):
+                    print(title,up_count)
+                    Deal(image_url=image,title=title,link=link,reply_count=reply_count,up_count=up_count).save()
+                    asyncio.run(botAsynMain('{} {}'.format(title, link)))
                 
         except Exception as e:
             continue
