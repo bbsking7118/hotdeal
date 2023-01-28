@@ -6,3 +6,4 @@ class DealSerializers(serializers.ModelSerializer):
     class Meta:
         model = Deal
         fields = ('__all__')
+        
